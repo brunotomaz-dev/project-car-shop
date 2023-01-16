@@ -1,7 +1,5 @@
-import ICar from './ICar';
+import IAbstractODM from './IAbstractODM';
 
-interface ICarODM {
-  create(car: ICar): Promise<ICar>;
-}
+type ICarODM = IAbstractODM;
 
 export default ICarODM;
