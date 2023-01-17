@@ -9,7 +9,7 @@ abstract class AbstractODM<T> implements IAbstractODM<T> {
   constructor(name: string, schema: Schema) {
     this._name = name;
     this._schema = schema;
-    this._model = models[name] || model(name, this._schema);
+    this._model = models[this._name] || model(this._name, this._schema);
   }
 
   public async create(data: T): Promise<T> {

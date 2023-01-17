@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import ICar from '../Interfaces/ICar';
 import CarsService from '../Services/CarsService';
 
-class CarController {
+class CarsController {
   private service: CarsService;
   private req: Request;
   private res: Response;
@@ -20,11 +20,11 @@ class CarController {
     try {
       const car = await this.service.create(bodyCar);
 
-      this.res.status(201).json(car);
+      return this.res.status(201).json(car);
     } catch (error) {
       this.next(error);
     }
   }
 }
 
-export default CarController;
+export default CarsController;
