@@ -19,7 +19,7 @@ abstract class AbstractODM<T> implements IAbstractODM<T> {
 
   public async find(id: string): Promise<T | null> {
     if (!isValidObjectId(id)) {
-      throw new HttpException(StatusCodes.UNPROCESSABLE_ENTITY, 'Invalid Mongo id');
+      throw new HttpException(StatusCodes.UNPROCESSABLE_ENTITY, 'Invalid mongo id');
     }
     
     return this._model.findById(id);

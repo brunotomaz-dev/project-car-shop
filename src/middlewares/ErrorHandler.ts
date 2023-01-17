@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
+import HttpException, { StatusCodes } from '../utils/httpException';
 
 class ErrorHandler {
   public static handle(
-    error: Error,
+    error: HttpException,
     _req: Request,
     res: Response,
     next: NextFunction,
   ) {
-    res.status(500).json({ error: error.message });
+    res.status(error.status || StatusCodes.INTERNAL_SERVER).json({ message: error.message });
     next();
   }
 }
