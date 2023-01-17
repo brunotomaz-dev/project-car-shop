@@ -1,5 +1,6 @@
-import { model, Model, models, Schema } from 'mongoose';
+import { isValidObjectId, model, Model, models, Schema } from 'mongoose';
 import IAbstractODM from '../Interfaces/IAbstractODM';
+import HttpException, { StatusCodes } from '../utils/httpException';
 
 abstract class AbstractODM<T> implements IAbstractODM<T> {
   protected _model: Model<T>;
@@ -15,6 +16,18 @@ abstract class AbstractODM<T> implements IAbstractODM<T> {
   public async create(data: T): Promise<T> {
     return this._model.create({ ...data });
   } 
+
+  public async find(id: string): Promise<T | null> {
+    if (!isValidObjectId(id)) {
+      throw new HttpException(StatusCodes.UNPROCESSABLE_ENTITY, 'Invalid Mongo id');
+    }
+    
+    return this._model.findById(id);
+  }
+
+  public async findAll(): Promise<T[]> {
+    return this._model.find();
+  }
 }
 
 export default AbstractODM;

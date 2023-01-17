@@ -1,11 +1,8 @@
 import { Router } from 'express';
-import CarsController from '../Controllers/CarsController';
+import carRoutes from './carRoutes';
 
 const router = Router();
 
-router.post(
-  '/cars', 
-  (req, res, next) => new CarsController(req, res, next).create(),
-);
+router.use('/cars', carRoutes); 
 
 export default router;

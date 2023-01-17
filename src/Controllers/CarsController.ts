@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import ICar from '../Interfaces/ICar';
 import CarsService from '../Services/CarsService';
+import { StatusCodes } from '../utils/httpException';
 
 class CarsController {
   private service: CarsService;
@@ -28,7 +29,28 @@ class CarsController {
     try {
       const car = await this.service.create(bodyCar);
 
-      return this.res.status(201).json(car);
+      return this.res.status(StatusCodes.CREATED).json(car);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
+  public async find() {
+    const { id } = this.req.params;
+    try {
+      const car = await this.service.find(id);
+
+      return this.res.status(StatusCodes.OK).json(car);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
+  public async findAll() {
+    try {
+      const cars = await this.service.findAll();
+
+      return this.res.status(StatusCodes.OK).json(cars);
     } catch (error) {
       this.next(error);
     }
