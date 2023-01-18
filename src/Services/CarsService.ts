@@ -35,6 +35,14 @@ class CarsService {
 
     return carsFound.map((car) => this.createCarDomain(car));
   }
+
+  public async update(id: string, car: ICar): Promise<Car> {
+    const carUpdated = await this._carsODM.update(id, car);
+
+    if (carUpdated === null) throw new HttpException(StatusCodes.NOT_FOUND, 'Car not found');
+
+    return this.createCarDomain(carUpdated);
+  }
 }
 
 export default CarsService;
