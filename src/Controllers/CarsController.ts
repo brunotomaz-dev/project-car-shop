@@ -60,8 +60,8 @@ class CarsController {
     const { id } = this.req.params;
     const bodyCar: ICar = {
       model: this.req.body.model,
-      year: this.req.body.year,
       color: this.req.body.color,
+      year: this.req.body.year,
       status: this.req.body.status || false,
       buyValue: this.req.body.buyValue,
       doorsQty: this.req.body.doorsQty,

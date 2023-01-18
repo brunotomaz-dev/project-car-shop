@@ -1,4 +1,4 @@
-import { isValidObjectId, model, Model, models, Schema } from 'mongoose';
+import { isValidObjectId, model, Model, models, Schema, UpdateQuery } from 'mongoose';
 import IAbstractODM from '../Interfaces/IAbstractODM';
 import HttpException, { StatusCodes } from '../utils/httpException';
 
@@ -34,7 +34,11 @@ abstract class AbstractODM<T> implements IAbstractODM<T> {
       throw new HttpException(StatusCodes.UNPROCESSABLE_ENTITY, 'Invalid mongo id');
     }
 
-    return this._model.findByIdAndUpdate(id, { data }, { new: true });
+    return this._model.findByIdAndUpdate(
+      id, 
+      { ...data } as UpdateQuery<T>, 
+      { new: true },
+    );
   }
 }
 
